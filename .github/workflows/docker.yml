@@ -33,7 +33,7 @@ jobs:
           tags: |
             type=ref,event=pr
             type=ref,event=tag
-            type=edge,branch=$repo.default_branch
+            type=edge
 
       - name: Check docker image tag
         run: |
@@ -73,7 +73,7 @@ jobs:
 
       # Start a default Wikmd container
       - name: Start wikmd
-        run: docker run -d --name wikmd -p 5000:5000 ${{ needs.build.outputs.wikmd_tag }}
+        run: docker run -d --name wikmd -p 5000:5000 ${{ fromJson(needs.build.outputs.wikmd_tag).tags[0]
 
       - name: Sleep
         uses: jakejarvis/wait-action@master
